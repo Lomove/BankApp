@@ -78,7 +78,228 @@ select {
     scroll-behavior: auto !important;
   }
 }
+:root {
+  --color-first: #5eeee7;
+  --color-second: #5dcaeb;
+  --color-third: #58a4eb;
+  --color-first-darker: #048680;
+  --color-second-darker: #076785;
+  --color-third-darker: #083c6d;
+  --color-main-text: rgb(49, 49, 49);
+  --color-footer: #37383d;
+}
+
+body {
+  background-color: #f0f0f0;
+  font-family: "Noto Sans", sans-serif;
+  font-size: clamp(12px, 0.3883495146vw + 10.5436893204px, 18px);
+  color: var(--color-main-text);
+}
+
 header {
+  height: 10vh;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+header a {
+  text-decoration: none;
+  color: inherit;
+}
+header .header-left,
+header .header-right {
+  padding: 0 8ch;
+  height: 80%;
+}
+header .header-left a {
+  height: 100%;
+  display: flex;
+  gap: 1ch;
+  align-items: center;
+}
+header .header-left a img {
+  max-height: 80%;
+}
+header .header-left a h1 {
+  height: -moz-fit-content;
+  height: fit-content;
+  font-weight: 100;
+  font-size: 1.5em;
+}
+header .header-right {
+  display: flex;
+  align-items: center;
+}
+header .header-right nav {
+  display: flex;
+  gap: 1.5em;
+  list-style: none;
+}
+header .header-right nav .anim-anchor {
+  padding: 0.8em 1em;
+}
+header .header-right nav .colorfull-anchor {
+  background-color: var(--color-first);
+  border-radius: 3em;
+}
+
+footer {
+  padding: 4em 0;
+  background-color: var(--color-footer);
+  color: #eee;
+  font-size: 0.8em;
+}
+footer .footer-nav ul {
+  padding: 0;
+  display: flex;
+  gap: 2ch;
+  justify-content: center;
+  list-style: none;
+}
+footer .footer-nav ul a {
+  padding: 1ch;
+  text-decoration: none;
+  color: inherit;
+}
+footer img {
+  max-width: 10ch;
+  margin: 3em auto;
+}
+footer p {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+}
+
+.section-intro {
+  position: relative;
+  max-width: 1200px;
+  height: 90vh;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+.section-intro .left-half {
+  width: 60%;
+}
+.section-intro .left-half h2 {
+  line-height: 1.2;
+  font-size: 3em;
+  font-weight: 600;
+}
+.section-intro .left-half p {
+  margin-top: 1em;
+  font-size: 1.3em;
+  font-weight: 500;
+}
+.section-intro .left-half .light-text {
+  position: relative;
+}
+.section-intro .left-half .light-text::before {
+  content: "";
+  width: 110%;
+  height: 80%;
+  position: absolute;
+  top: 15%;
+  left: -5%;
+  display: block;
+  background-color: var(--color-first);
+  border-radius: 0.1em;
+  z-index: -1;
+  transform: skew(-15deg);
+}
+.section-intro .left-half a {
+  display: block;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-top: 1.5em;
+  color: var(--color-first);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-first);
+}
+.section-intro .left-half a::after {
+  content: " 🠓";
+  font-size: 1.3em;
+}
+.section-intro .right-half {
+  width: 40%;
+}
+
+.section-header {
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 4em auto;
+}
+.section-header h2 {
+  color: var(--color-first);
+  text-transform: uppercase;
+  font-size: 1.1em;
+}
+.section-header p {
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.section-services {
+  width: 100%;
+}
+.section-services .section-block {
+  width: 84%;
+  margin: 2em auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+  line-height: 2.3;
+}
+.section-services .section-block h3 {
+  font-size: 1.1em;
+}
+.section-services .section-block p {
+  font-size: 0.8em;
+}
+.section-services .section-block img {
+  max-width: calc(50% - 1em);
+}
+.section-services .section-block .not-img-half {
+  width: calc(50% - 1em);
+  padding: 0 8%;
+}
+
+.section-operations {
+  max-width: 1000px;
+  margin: 2em auto;
+}
+.section-operations .operations-block {
+  background-color: white;
+}
+
+.sections-open-account {
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  background-color: var(--color-footer);
+  border-bottom: 1px solid rgba(173, 173, 173, 0.3);
+  color: #eee;
+  font-size: 2em;
+}
+.sections-open-account p {
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  margin-bottom: 1em;
+  text-align: center;
+  font-weight: 500;
+}
+.sections-open-account a {
+  display: block;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+  padding: 1em 2em;
+  border-radius: 2em;
+  background-color: var(--color-first);
+  text-decoration: none;
+  color: black;
+  font-weight: 600;
+  font-size: 0.5em;
 }
