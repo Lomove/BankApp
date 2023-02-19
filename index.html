@@ -28,7 +28,7 @@
           <li class="anim-anchor"><a href="#">Услуги</a></li>
           <li class="anim-anchor"><a href="#">Операции</a></li>
           <li class="anim-anchor"><a href="#">Отзывы</a></li>
-          <li class="anim-anchor colorfull-anchor btn-registration"><a href="#">Открыть счет</a></li>
+          <li class="anim-anchor colorfull-anchor"><a href="#" class="btn-registration">Открыть счет</a></li>
         </nav>
       </div>
     </header>
@@ -141,6 +141,25 @@
 
       <p class="creator">© Lomove</p>
     </footer>
+
+    <!-- Модальное окно - открыть счет -->
+    <div class="modal-window hidden">
+      <button class="btn--close-modal-window">&times;</button>
+      <h2 class="modal__header">
+        Откройте банковский счёт <br />
+        за <span class="light-text">5 минут</span>
+      </h2>
+      <form class="modal__form">
+        <label>Имя</label>
+        <input type="text" />
+        <label>Фамилия</label>
+        <input type="text" />
+        <label>Email</label>
+        <input type="email" />
+        <button class="btn">Далее &rarr;</button>
+      </form>
+    </div>
+    <div class="overlay"></div>
 
     <script src="/scripts.js"></script>
   </body>
