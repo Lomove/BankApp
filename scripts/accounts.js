@@ -122,12 +122,17 @@ const enterAccount = function () {
 //Показать транзакции, текущий баланс, получение, вывод и процент.
 const showTrans = function () {
   const currentDate = new Date();
+  const currencyOptions = {
+    style: 'currency',
+    currency: currentAccount.currency,
+  };
 
   // Вычисляем текущий баланс и помещаем его в объект аккаунта. Выводим на экран дату первой операции.
   labelDate.textContent = Intl.DateTimeFormat(currentAccount.locale, { year: 'numeric', month: 'numeric', day: 'numeric' }).format(new Date(currentAccount.transactionsDates[0]));
   currentAccount.balance = currentAccount.transactions.reduce((acc, trans) => acc + trans, 0);
-  labelBalance.textContent = new Intl.NumberFormat(currentAccount.locale, { style: 'currency', currency: currentAccount.currency }).format(currentAccount.balance);
+  labelBalance.textContent = new Intl.NumberFormat(currentAccount.locale, currencyOptions).format(currentAccount.balance);
 
+  // Форматируем и помещаем на страницу все транзакции аккаунта
   containerTransactions.innerHTML = '';
   currentAccount.transactions.forEach((trans, i) => {
     //Определяем тип операции и запмываем в переменную.
@@ -150,15 +155,32 @@ const showTrans = function () {
       <div class="transactions__row">
           <div class="transactions__type transactions__type--${transactionType[0]}">${i + 1} ${transactionType[1]}</div>
           <div class="transactions__date">${transactionDateFormat}</div>
-          <div class="transactions__value">${new Intl.NumberFormat(currentAccount.locale, { style: 'currency', currency: currentAccount.currency }).format(trans)}</div>
+          <div class="transactions__value">${new Intl.NumberFormat(currentAccount.locale, currencyOptions).format(trans)}</div>
       </div>
     `
     );
   });
+
+  // Считаем и отображаем общий приход, исход и проценты
+  labelSumIn.textContent = new Intl.NumberFormat(currentAccount.locale, currencyOptions).format(
+    currentAccount.transactions.reduce((acc, trans) => {
+      if (trans > 0) return acc + trans;
+      else return acc;
+    }, 0)
+  );
+  labelSumOut.textContent = new Intl.NumberFormat(currentAccount.locale, currencyOptions).format(
+    currentAccount.transactions.reduce((acc, trans) => {
+      if (trans < 0) return acc + trans;
+      else return acc;
+    }, 0)
+  );
+  labelSumInterest.textContent = new Intl.NumberFormat(currentAccount.locale, currencyOptions).format(
+    currentAccount.transactions.filter((trans) => trans > 100).reduce((acc, trans) => acc + (trans * currentAccount.interest) / 100, 0)
+  );
 };
 
 //Тестовая авторизация!
-// setTimeout(() => {
-//   currentAccount = accounts[0];
-//   enterAccount();
-// }, 300);
+setTimeout(() => {
+  currentAccount = accounts[0];
+  enterAccount();
+}, 300);
