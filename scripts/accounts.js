@@ -31,7 +31,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 const accounts = [];
 const getAccs = function (callBack, accounts) {
   const request = new XMLHttpRequest();
-  request.open('GET', '../accounts/accounts.json');
+  request.open('GET', './accounts/accounts.json');
   request.responseType = 'json';
   request.send();
   request.onload = function () {
