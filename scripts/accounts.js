@@ -121,14 +121,44 @@ const enterAccount = function () {
 
 //Показать транзакции, текущий баланс, получение, вывод и процент.
 const showTrans = function () {
-  // Вычисляем текущий баланс и помещаем его в объект аккаунта. Выводим на экран
+  const currentDate = new Date();
+
+  // Вычисляем текущий баланс и помещаем его в объект аккаунта. Выводим на экран дату первой операции.
+  labelDate.textContent = Intl.DateTimeFormat(currentAccount.locale, { year: 'numeric', month: 'numeric', day: 'numeric' }).format(new Date(currentAccount.transactionsDates[0]));
   currentAccount.balance = currentAccount.transactions.reduce((acc, trans) => acc + trans, 0);
   labelBalance.textContent = new Intl.NumberFormat(currentAccount.locale, { style: 'currency', currency: currentAccount.currency }).format(currentAccount.balance);
+
+  containerTransactions.innerHTML = '';
+  currentAccount.transactions.forEach((trans, i) => {
+    //Определяем тип операции и запмываем в переменную.
+    const transactionType = trans > 0 ? ['deposit', 'депозит'] : ['withdrawal', 'списание'];
+
+    //Считываем дату текущей транзакции и форматируем ее
+    const transactionDate = new Date(currentAccount.transactionsDates[i]);
+    const transactionDateFormat = (function () {
+      if (currentDate - transactionDate <= 86400000) return 'Сегодня';
+      if (currentDate - transactionDate <= 172800000) return 'Вчера';
+      if (currentDate - transactionDate <= 259200000) return '2 дня назад';
+      if (currentDate - transactionDate <= 345600000) return '3 дня назад';
+      return Intl.DateTimeFormat(currentAccount.locale, { year: 'numeric', month: 'numeric', day: 'numeric' }).format(transactionDate);
+    })();
+
+    // Всавляем отформатированные транзакции на страницу
+    containerTransactions.insertAdjacentHTML(
+      'afterbegin',
+      `
+      <div class="transactions__row">
+          <div class="transactions__type transactions__type--${transactionType[0]}">${i + 1} ${transactionType[1]}</div>
+          <div class="transactions__date">${transactionDateFormat}</div>
+          <div class="transactions__value">${new Intl.NumberFormat(currentAccount.locale, { style: 'currency', currency: currentAccount.currency }).format(trans)}</div>
+      </div>
+    `
+    );
+  });
 };
 
 //Тестовая авторизация!
-setTimeout(() => {
-  currentAccount = accounts[0];
-  enterAccount();
-  updateUI();
-}, 300);
+// setTimeout(() => {
+//   currentAccount = accounts[0];
+//   enterAccount();
+// }, 300);
