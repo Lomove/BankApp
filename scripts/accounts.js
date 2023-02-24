@@ -26,6 +26,8 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseNickname = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+let currentAccount;
+
 // Получаем аккаунты из JSON
 // Функция fillAccs без параметров, обновляет из файла все аккаунты.
 const accounts = [];
@@ -62,6 +64,35 @@ const createLogins = function (accounts) {
 };
 
 //Модуль авторизации / подтверждения существования пользователя.
-const userAutorization = function () {};
+const userAutorization = function (login, pin = false) {
+  //Поиск логина в базе. Возвращает найденный акк или false.
+  const chekLogin = function (login) {
+    return accounts.find((account) => account.login === login);
+  };
 
-btnLogin.addEventListener('click', () => {});
+  // Сверка ПИН-кода. Возвращает TRUE/FALSE.
+  const chekPIN = function (account, pin) {
+    return account.pin === pin;
+  };
+
+  //Проверка на формат пин.
+  if (!pin) return 'Ошибка - не корректный формал ПИН-кода';
+
+  // Ищем аккаунт
+  const detectedAccount = chekLogin(login);
+  if (!detectedAccount) return 'Ошибка - логина не существует';
+
+  // Сверяем ПИН, если при вызове родительской функции он был передан.
+  if (!(pin != false && chekPIN(detectedAccount, pin))) return 'Ошибка - не правильный ПИН-код';
+
+  // Если все впорядке, устанавливаем значение текущего аккаунта и возвращаем true.
+  currentAccount = detectedAccount;
+  return true;
+};
+
+//Прослушка на кнопку авторизации и вывод в консоль ошибок/успеха.
+btnLogin.addEventListener('click', (e) => {
+  e.preventDefault();
+  const status = userAutorization(inputLoginUsername.value, Number(inputLoginPin.value));
+  status === true ? console.log('Вход под аккаунтом ', currentAccount.userName) : console.log(status);
+});
