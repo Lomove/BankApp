@@ -206,6 +206,11 @@ header .header-right .header-nav .anim-anchor a {
 header .header-right .header-nav .colorfull-anchor a {
   background-color: var(--color-first);
   border-radius: 3em;
+  white-space: nowrap;
+}
+header .header-right .header-nav .btn-account {
+  background-color: var(--color-second);
+  border-radius: 3em;
 }
 @media (max-width: 800px) {
   header .header-right {
@@ -229,6 +234,9 @@ header .header-right .header-nav .colorfull-anchor a {
   }
   header .header-right .header-nav li {
     font-size: 1.5em;
+  }
+  header .header-right .header-nav a {
+    background-color: unset !important;
   }
   header .header-right .menu-btn {
     display: flex;
@@ -355,22 +363,6 @@ footer p {
   margin-top: 1em;
   font-size: 1.3em;
   font-weight: 500;
-}
-.section-intro .left-half .light-text {
-  position: relative;
-}
-.section-intro .left-half .light-text::before {
-  content: "";
-  width: 110%;
-  height: 80%;
-  position: absolute;
-  top: 15%;
-  left: -5%;
-  display: block;
-  background-color: var(--color-first);
-  border-radius: 0.1em;
-  z-index: -1;
-  transform: skew(-15deg);
 }
 .section-intro .left-half a {
   display: block;
