@@ -90,9 +90,45 @@ const userAutorization = function (login, pin = false) {
   return true;
 };
 
-//Прослушка на кнопку авторизации и вывод в консоль ошибок/успеха.
+//Прослушка на кнопку авторизации, вход и вывод в консоль ошибок/успеха.
 btnLogin.addEventListener('click', (e) => {
   e.preventDefault();
   const status = userAutorization(inputLoginUsername.value, Number(inputLoginPin.value));
-  status === true ? console.log('Вход под аккаунтом ', currentAccount.userName) : console.log(status);
+
+  status === true ? enterAccount() : console.log(status);
+
+  inputLoginPin.blur();
 });
+
+// Обновление UI
+const updateUI = function () {
+  showTrans();
+};
+
+//Вход юзера
+const enterAccount = function () {
+  console.log('Вход под аккаунтом ', currentAccount.userName);
+  inputLoginUsername.value = '';
+  inputLoginPin.value = '';
+  inputLoginPin.blur();
+  inputLoginUsername.blur();
+  labelWelcome.textContent = `Пользователь ${currentAccount.userName} `;
+  labelWelcome.style.color = 'black';
+  containerApp.style.opacity = '1';
+
+  updateUI();
+};
+
+//Показать транзакции, текущий баланс, получение, вывод и процент.
+const showTrans = function () {
+  // Вычисляем текущий баланс и помещаем его в объект аккаунта. Выводим на экран
+  currentAccount.balance = currentAccount.transactions.reduce((acc, trans) => acc + trans, 0);
+  labelBalance.textContent = new Intl.NumberFormat(currentAccount.locale, { style: 'currency', currency: currentAccount.currency }).format(currentAccount.balance);
+};
+
+//Тестовая авторизация!
+setTimeout(() => {
+  currentAccount = accounts[0];
+  enterAccount();
+  updateUI();
+}, 300);
