@@ -216,7 +216,23 @@ const operations = function () {
   });
 
   // Запрос займа
-  const loanRequest = function () {};
+  const loanRequest = function (amount) {
+    if (amount < 5) return 'Ошибка - можно занимать не менее 5';
+    if (amount > currentAccount.transactions.reduce((acc, trans) => (trans > acc ? trans : acc), currentAccount.transactions[0]) * 0.1) return 'Ошибка - превышен лимит займа';
+
+    currentAccount.transactions.push(amount);
+    currentAccount.transactionsDates.push(new Date());
+
+    inputLoanAmount.value = '';
+    inputLoanAmount.blur();
+    updateUI();
+
+    return `Одобрен займ в размере ${amount}`;
+  };
+  btnLoan.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log(loanRequest(Number(inputLoanAmount.value)));
+  });
 
   // Закрытие счета
   const closeAccount = function () {};
