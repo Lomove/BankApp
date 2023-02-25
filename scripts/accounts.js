@@ -191,6 +191,11 @@ const operations = function () {
       return 'Ошибка - логина не существует';
     }
 
+    if (currentAccount.balance < amount) {
+      inputTransferAmount.value = '';
+      return 'Ошибка - не достаточно средств';
+    }
+
     inputTransferAmount.blur();
     inputTransferTo.value = '';
     inputTransferAmount.value = '';
