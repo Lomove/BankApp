@@ -17,6 +17,7 @@ const btnTransfer = document.querySelector('.form__btn--transfer');
 const btnLoan = document.querySelector('.form__btn--loan');
 const btnClose = document.querySelector('.form__btn--close');
 const btnSort = document.querySelector('.btn--sort');
+const allBtnsForms = document.querySelectorAll('.form__btn');
 
 const inputLoginUsername = document.querySelector('.login__input--user');
 const inputLoginPin = document.querySelector('.login__input--pin');
@@ -107,6 +108,26 @@ const updateUI = function () {
 
 //Вход юзера
 const enterAccount = function () {
+  // Автовыход
+  const autoExit = (function () {
+    let timerValue = 300000;
+    labelTimer.textContent = `${new Intl.DateTimeFormat(currentAccount.locale, { minute: '2-digit', second: '2-digit' }).format(new Date(timerValue))}`;
+
+    const tikTak = setInterval(() => {
+      timerValue -= 1000;
+      labelTimer.textContent = `${new Intl.DateTimeFormat(currentAccount.locale, { minute: '2-digit', second: '2-digit' }).format(new Date(timerValue))}`;
+      if (timerValue === 0) {
+        containerApp.style.opacity = '';
+      }
+    }, 1000);
+
+    allBtnsForms.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        timerValue = 300000;
+      })
+    );
+  })();
+
   console.log('Вход под аккаунтом ', currentAccount.userName);
   inputLoginUsername.value = '';
   inputLoginPin.value = '';
