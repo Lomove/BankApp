@@ -235,7 +235,25 @@ const operations = function () {
   });
 
   // Закрытие счета
-  const closeAccount = function () {};
+  const closeAccount = function (login, pin) {
+    const status = userAutorization(login, pin, false);
+    if (typeof status != 'object') {
+      inputCloseNickname.value = '';
+      inputClosePin.value = '';
+      inputClosePin.blur();
+      return status;
+    }
+
+    inputCloseNickname.value = '';
+    inputClosePin.value = '';
+    inputClosePin.blur();
+    if (currentAccount.login === login) containerApp.style.opacity = '0';
+    return `Аккаунт ${currentAccount.userName} закрыт, все бакби сгорели =)`;
+  };
+  btnClose.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log(closeAccount(inputCloseNickname.value, Number(inputClosePin.value)));
+  });
 };
 
 //Тестовая авторизация!
