@@ -64,7 +64,7 @@ const createLogins = function (accounts) {
 };
 
 //Модуль авторизации / подтверждения существования пользователя.
-const userAutorization = function (login, pin = false) {
+const userAutorization = function (login, pin = false, changeAccount = false) {
   //Поиск логина в базе. Возвращает найденный акк или false.
   const chekLogin = function (login) {
     return accounts.find((account) => account.login === login);
@@ -76,26 +76,26 @@ const userAutorization = function (login, pin = false) {
   };
 
   //Проверка на формат пин.
-  if (!pin) return 'Ошибка - не корректный формал ПИН-кода';
+  if (pin != false || pin === 0) if (!pin) return 'Ошибка - не корректный формал ПИН-кода';
 
   // Ищем аккаунт
   const detectedAccount = chekLogin(login);
   if (!detectedAccount) return 'Ошибка - логина не существует';
 
   // Сверяем ПИН, если при вызове родительской функции он был передан.
-  if (!(pin != false && chekPIN(detectedAccount, pin))) return 'Ошибка - не правильный ПИН-код';
+  if (pin != false) if (!chekPIN(detectedAccount, pin)) return 'Ошибка - не правильный ПИН-код';
 
   // Если все впорядке, устанавливаем значение текущего аккаунта и возвращаем true.
-  currentAccount = detectedAccount;
-  return true;
+  if (changeAccount === true) currentAccount = detectedAccount;
+  return detectedAccount;
 };
 
 //Прослушка на кнопку авторизации, вход и вывод в консоль ошибок/успеха.
 btnLogin.addEventListener('click', (e) => {
   e.preventDefault();
-  const status = userAutorization(inputLoginUsername.value, Number(inputLoginPin.value));
+  const status = userAutorization(inputLoginUsername.value, Number(inputLoginPin.value), true);
 
-  status === true ? enterAccount() : console.log(status);
+  typeof status === 'object' ? enterAccount() : console.log(status);
 
   inputLoginPin.blur();
 });
@@ -117,6 +117,7 @@ const enterAccount = function () {
   containerApp.style.opacity = '1';
 
   updateUI();
+  operations();
 };
 
 //Показать транзакции, текущий баланс, получение, вывод и процент.
@@ -177,6 +178,43 @@ const showTrans = function () {
   labelSumInterest.textContent = new Intl.NumberFormat(currentAccount.locale, currencyOptions).format(
     currentAccount.transactions.filter((trans) => trans > 100).reduce((acc, trans) => acc + (trans * currentAccount.interest) / 100, 0)
   );
+};
+
+//Модуль активностей в кабинете
+const operations = function () {
+  // Перевод денег
+  const moneyOrder = function (login, amount) {
+    const status = userAutorization(login);
+    if (typeof status != 'object') {
+      inputTransferAmount.blur();
+      inputTransferAmount.value = '';
+      return 'Ошибка - логина не существует';
+    }
+
+    inputTransferAmount.blur();
+    inputTransferTo.value = '';
+    inputTransferAmount.value = '';
+
+    status.transactions.push(amount);
+    status.transactionsDates.push(new Date());
+
+    currentAccount.transactions.push(-amount);
+    currentAccount.transactionsDates.push(new Date());
+
+    updateUI();
+
+    return `Перевод ${amount} клиенту ${status.userName}`;
+  };
+  btnTransfer.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log(moneyOrder(inputTransferTo.value, Number(inputTransferAmount.value)));
+  });
+
+  // Запрос займа
+  const loanRequest = function () {};
+
+  // Закрытие счета
+  const closeAccount = function () {};
 };
 
 //Тестовая авторизация!
