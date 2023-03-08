@@ -277,8 +277,8 @@ const operations = function () {
   });
 };
 
-//Тестовая авторизация!
-setTimeout(() => {
-  currentAccount = accounts[0];
-  enterAccount();
-}, 300);
+// //Тестовая авторизация!
+// setTimeout(() => {
+//   currentAccount = accounts[0];
+//   enterAccount();
+// }, 300);
