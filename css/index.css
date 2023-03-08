@@ -129,13 +129,18 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.08;
+  opacity: 0;
   background-color: grey;
   text-decoration: none;
   font-size: 4em;
   color: black;
+  transition: opacity 0.5s linear, visibility 0.5s;
 }
-.scrooll-up:hover {
+.scrooll-up.active {
+  visibility: visible;
+  opacity: 0.08;
+}
+.scrooll-up.active:hover {
   opacity: 0.3;
 }
 
