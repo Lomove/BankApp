@@ -89,6 +89,10 @@ select {
   --color-footer: #37383d;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #f0f0f0;
   font-family: "Noto Sans", sans-serif;
@@ -112,6 +116,28 @@ body {
   border-radius: 0.1em;
   z-index: -1;
   transform: skew(-15deg);
+}
+
+.scrooll-up {
+  visibility: hidden;
+  visibility: visible;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 60px;
+  max-width: 15vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.08;
+  background-color: grey;
+  text-decoration: none;
+  font-size: 4em;
+  color: black;
+}
+.scrooll-up:hover {
+  opacity: 0.3;
 }
 
 header {
