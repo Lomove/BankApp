@@ -120,7 +120,6 @@ body {
 
 .scrooll-up {
   visibility: hidden;
-  visibility: visible;
   position: fixed;
   top: 0;
   left: 0;
