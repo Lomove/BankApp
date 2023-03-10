@@ -148,10 +148,37 @@ header {
   margin-top: 2vh;
   padding: 0 5%;
   height: 8vh;
+  width: 100%;
   display: flex;
-  position: relative;
   justify-content: space-between;
   text-align: center;
+}
+header.active {
+  position: sticky;
+  margin-top: 0;
+  top: 0;
+  z-index: 1000;
+  background-color: rgba(240, 240, 240, 0.8);
+  animation: headerStart 2s;
+}
+@keyframes headerStart {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+header.disable {
+  animation: headerEnd 2s;
+}
+@keyframes headerEnd {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 header a {
   text-decoration: none;
@@ -378,7 +405,8 @@ footer p {
 
 .cookie {
   position: fixed;
-  bottom: 0;
+  z-index: 1000;
+  bottom: 10px;
   left: 0;
   width: 100%;
   display: flex;
@@ -391,9 +419,10 @@ footer p {
   display: flex;
   align-items: center;
   gap: 1em;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgb(117, 117, 117);
   border-radius: 3em;
-  transform: translate(0, 100%);
+  color: black;
+  transform: translate(0, calc(100% + 10px));
   animation: toUp 400ms linear 1s forwards;
 }
 @keyframes toUp {
@@ -514,6 +543,7 @@ footer p {
 }
 .section-operations .operations-block {
   position: relative;
+  z-index: 1 !important;
   background-color: white;
 }
 .section-operations .operations-menu {
