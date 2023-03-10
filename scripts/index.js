@@ -33,9 +33,30 @@ const btnToSection1 = document.querySelector('.a-to-section1');
 
 //Прокрутка к первой секции при нажатии на кнопку "Узнать больше"
 {
-  const section1Coords = section1.getBoundingClientRect();
   btnToSection1.addEventListener('click', (e) => {
     e.preventDefault();
     section1.scrollIntoView({ behavior: 'smooth' });
+  });
+}
+
+//Операции - вкладки.
+{
+  const btnsOperTabs = document.querySelectorAll('.operation-btn');
+  const tabsOper = document.querySelectorAll('.operations-content');
+  const parentBtnsOperTabs = document.querySelector('.operations-menu');
+  let tabActive = 0;
+
+  parentBtnsOperTabs.addEventListener('click', (e) => {
+    const btn = e.target;
+
+    if (btn.value != tabActive) {
+      btnsOperTabs[tabActive].classList.remove('active');
+      tabsOper[tabActive].classList.remove('active');
+
+      btnsOperTabs[btn.value].classList.add('active');
+      tabsOper[btn.value].classList.add('active');
+
+      tabActive = btn.value;
+    }
   });
 }

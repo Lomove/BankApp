@@ -510,7 +510,53 @@ footer p {
   margin: 2em auto;
 }
 .section-operations .operations-block {
+  position: relative;
   background-color: white;
+}
+.section-operations .operations-menu {
+  transform: translate(0, -50%);
+}
+.section-operations .operations-menu ul {
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+.section-operations .operations-menu ul .operation-btn {
+  padding: 0.8em 1.5em;
+  border: none;
+  border-radius: 3em;
+}
+.section-operations .operations-menu ul .operation-btn.active {
+  transform: translate(0, -20%);
+}
+.section-operations .operations-menu ul .operation-btn-1 {
+  background-color: var(--color-second);
+}
+.section-operations .operations-menu ul .operation-btn-1:hover {
+  background-color: var(--color-second-darker);
+}
+.section-operations .operations-menu ul .operation-btn-2 {
+  background-color: var(--color-first);
+}
+.section-operations .operations-menu ul .operation-btn-2:hover {
+  background-color: var(--color-first-darker);
+}
+.section-operations .operations-menu ul .operation-btn-3 {
+  background-color: var(--color-third);
+}
+.section-operations .operations-menu ul .operation-btn-3:hover {
+  background-color: var(--color-third-darker);
+}
+.section-operations .operations-content-wrapper {
+  margin: auto;
+  width: 80%;
+}
+.section-operations .operations-content-wrapper .operations-content {
+  display: none;
+}
+.section-operations .operations-content-wrapper .operations-content.active {
+  display: block;
 }
 
 .sections-open-account {
