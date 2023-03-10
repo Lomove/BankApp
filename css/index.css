@@ -230,6 +230,9 @@ header .header-right .header-nav {
   gap: 1.5em;
   list-style: none;
 }
+header .header-right .header-nav .anim-anchor {
+  transition: opacity 0.4s;
+}
 header .header-right .header-nav .anim-anchor a {
   padding: 0.8em 1em;
 }
@@ -529,6 +532,10 @@ footer p {
 }
 .section-operations .operations-menu ul .operation-btn.active {
   transform: translate(0, -20%);
+}
+.section-operations .operations-menu ul .operation-btn::before {
+  content: "🚀";
+  padding-right: 1ch;
 }
 .section-operations .operations-menu ul .operation-btn-1 {
   background-color: var(--color-second);

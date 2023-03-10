@@ -31,6 +31,25 @@ const btnToSection1 = document.querySelector('.a-to-section1');
   });
 }
 
+//Анимация меню при наведении
+{
+  const menu = document.querySelector('.header-nav');
+  const elemntsAnim = document.querySelectorAll('.anim-anchor');
+
+  menu.addEventListener('mouseover', (e) => {
+    const linkTarget = e.target.closest('.anim-anchor');
+
+    //GUARD
+    if (!linkTarget) return;
+
+    elemntsAnim.forEach((element) => (element.style.opacity = '0.4'));
+    linkTarget.style.opacity = '1';
+  });
+  menu.addEventListener('mouseout', () => {
+    elemntsAnim.forEach((element) => (element.style.opacity = '1'));
+  });
+}
+
 //Прокрутка к первой секции при нажатии на кнопку "Узнать больше"
 {
   btnToSection1.addEventListener('click', (e) => {
@@ -47,16 +66,17 @@ const btnToSection1 = document.querySelector('.a-to-section1');
   let tabActive = 0;
 
   parentBtnsOperTabs.addEventListener('click', (e) => {
-    const btn = e.target;
+    const btn = e.target.closest('.operation-btn');
+    //Guard
+    if (!(btn && btn.value != tabActive)) return;
 
-    if (btn.value != tabActive) {
-      btnsOperTabs[tabActive].classList.remove('active');
-      tabsOper[tabActive].classList.remove('active');
+    //Манипуляции
+    btnsOperTabs[tabActive].classList.remove('active');
+    tabsOper[tabActive].classList.remove('active');
 
-      btnsOperTabs[btn.value].classList.add('active');
-      tabsOper[btn.value].classList.add('active');
+    btnsOperTabs[btn.value].classList.add('active');
+    tabsOper[btn.value].classList.add('active');
 
-      tabActive = btn.value;
-    }
+    tabActive = btn.value;
   });
 }
