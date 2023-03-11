@@ -51,12 +51,12 @@ const btnToSection1 = document.querySelector('.a-to-section1');
 }
 
 //Прокрутка к первой секции при нажатии на кнопку "Узнать больше"
-{
-  btnToSection1.addEventListener('click', (e) => {
-    e.preventDefault();
-    section1.scrollIntoView({ behavior: 'smooth' });
-  });
-}
+// {
+//   btnToSection1.addEventListener('click', (e) => {
+//     e.preventDefault();
+//     section1.scrollIntoView({ behavior: 'smooth' });
+//   });
+// }
 
 //Операции - вкладки.
 {
