@@ -2,14 +2,16 @@
 
 const scrollBar = document.querySelector('.scrooll-up');
 const header = document.querySelector('header');
-const startScroll = document.querySelector('hr').getBoundingClientRect().y * 0.8;
 
-window.addEventListener('scroll', () => {
-  if (scrollY > startScroll) {
-    scrollBar.classList.add('active');
-    header.classList.add('active');
-  } else {
-    scrollBar.classList.remove('active');
-    header.classList.remove('active');
-  }
-});
+new IntersectionObserver(
+  (entries, observer) => {
+    if (entries[0].isIntersecting === false) {
+      header.classList.add('active');
+      scrollBar.classList.add('active');
+    } else {
+      header.classList.remove('active');
+      scrollBar.classList.remove('active');
+    }
+  },
+  { root: null, threshold: 0.2 }
+).observe(document.querySelector('.section-intro'));
