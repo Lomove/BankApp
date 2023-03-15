@@ -50,14 +50,6 @@ const btnToSection1 = document.querySelector('.a-to-section1');
   });
 }
 
-//Прокрутка к первой секции при нажатии на кнопку "Узнать больше"
-// {
-//   btnToSection1.addEventListener('click', (e) => {
-//     e.preventDefault();
-//     section1.scrollIntoView({ behavior: 'smooth' });
-//   });
-// }
-
 //Операции - вкладки.
 {
   const btnsOperTabs = document.querySelectorAll('.operation-btn');
@@ -79,4 +71,19 @@ const btnToSection1 = document.querySelector('.a-to-section1');
 
     tabActive = btn.value;
   });
+}
+
+//Вылет секций при первом скролле вниз страницы
+{
+  document.querySelectorAll('section:not(:first-child)').forEach((section) =>
+    new IntersectionObserver(
+      (entries, observer) => {
+        if (entries[0].isIntersecting) {
+          section.classList.remove('transform-to-up');
+          observer.unobserve(entries[0].target);
+        }
+      },
+      { root: null, threshold: 0.1 }
+    ).observe(section)
+  );
 }

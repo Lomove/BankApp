@@ -441,6 +441,14 @@ footer p {
   cursor: pointer;
 }
 
+.transform-to-up {
+  transform: translateY(6rem);
+}
+
+section {
+  transition-duration: 0.8s;
+}
+
 .section-intro {
   position: relative;
   max-width: 1200px;
