@@ -87,3 +87,29 @@ const btnToSection1 = document.querySelector('.a-to-section1');
     ).observe(section)
   );
 }
+
+//Слайдер
+{
+  const btnSlideLeft = document.querySelector('.slide-left');
+  const btnSlideRight = document.querySelector('.slide-right');
+
+  const slidesWrapper = document.querySelector('.section-feedbacks .slider-wrapper .slides');
+  const slides = document.querySelectorAll('.section-feedbacks .slider-wrapper .slide');
+
+  let currentslide = 0;
+
+  //Биндим кнопки
+  btnSlideLeft.addEventListener('click', () => {
+    currentslide != 0 ? currentslide-- : (currentslide = 2);
+    slides[currentslide].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+  const slideRight = function () {
+    currentslide != 2 ? currentslide++ : (currentslide = 0);
+    // slidesWrapper.scrollLeft = slidesWrapper.offsetWidth * (currentslide + 1);
+    slides[currentslide].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+  btnSlideRight.addEventListener('click', slideRight);
+
+  //Автопрокрутка
+  const sliderInterval = setInterval(slideRight, 8000);
+}
