@@ -111,5 +111,11 @@ const btnToSection1 = document.querySelector('.a-to-section1');
   btnSlideRight.addEventListener('click', slideRight);
 
   //Автопрокрутка
-  const sliderInterval = setInterval(slideRight, 8000);
+  let sliderInterval;
+  new IntersectionObserver(
+    (entries) => {
+      entries[0].isIntersecting ? (sliderInterval = setInterval(slideRight, 8000)) : clearInterval(sliderInterval);
+    },
+    { root: null, threshold: 0.5 }
+  ).observe(slidesWrapper);
 }
