@@ -610,6 +610,7 @@ section {
 }
 
 .section-feedbacks .slider-wrapper {
+  padding-bottom: 4em;
   margin: auto;
   width: 90%;
   max-width: 1000px;
@@ -649,14 +650,11 @@ section {
   white-space: initial;
   word-spacing: initial;
 }
-.section-feedbacks .slider-wrapper .slider-content .slides .slide::after {
-  content: "";
-}
 .section-feedbacks .slider-wrapper .slider-content .slides .slide h3 {
   color: var(--color-main-text-2);
 }
 .section-feedbacks .slider-wrapper .slider-content .slides .slide .credits-recensor {
-  padding: 2em;
+  padding: 2em 2em 0 2em;
   display: flex;
   gap: 1em;
 }
@@ -672,6 +670,23 @@ section {
 .section-feedbacks .slider-wrapper .slider-content .slides .slide .credits-recensor div .user-name {
   color: black;
   font-weight: 500;
+}
+.section-feedbacks .slider-wrapper .slider-content .indicator {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+.section-feedbacks .slider-wrapper .slider-content .indicator .dot {
+  height: 1em;
+  width: 1em;
+  opacity: 0.2;
+  background-color: var(--color-footer);
+  border-radius: 3em;
+  cursor: pointer;
+  transition: all 0.5s linear;
+}
+.section-feedbacks .slider-wrapper .slider-content .indicator .dot.active {
+  opacity: 0.8;
 }
 
 .sections-open-account {

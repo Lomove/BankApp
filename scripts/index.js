@@ -95,22 +95,72 @@ const btnToSection1 = document.querySelector('.a-to-section1');
 
   const slidesWrapper = document.querySelector('.section-feedbacks .slider-wrapper .slides');
   const slides = document.querySelectorAll('.section-feedbacks .slider-wrapper .slide');
+  const indicator = document.querySelector('.indicator');
 
   let currentslide = 0;
 
-  //Биндим кнопки
-  btnSlideLeft.addEventListener('click', () => {
-    currentslide != 0 ? currentslide-- : (currentslide = 2);
-    slides[currentslide].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  //Точки-индикаторы
+  for (let i = 0; i < slides.length; i++) {
+    indicator.insertAdjacentHTML('beforeend', `<div class="dot" code="${i}"></div>`);
+  }
+  indicator.firstChild.classList.add('active');
+  const dots = document.querySelectorAll('.dot');
+  indicator.addEventListener('click', (e) => {
+    switch (Number(e.target.getAttribute('code'))) {
+      case 0:
+        {
+          dots[currentslide].classList.remove('active');
+          currentslide = 2;
+          slideRight();
+        }
+        break;
+      case 1:
+        {
+          dots[currentslide].classList.remove('active');
+          currentslide = 0;
+          slideRight();
+        }
+        break;
+      case 2:
+        {
+          dots[currentslide].classList.remove('active');
+          currentslide = 1;
+          slideRight();
+        }
+        break;
+    }
   });
+
+  // Налево
+  const slideleft = function () {
+    dots[currentslide].classList.remove('active');
+    currentslide != 0 ? currentslide-- : (currentslide = 2);
+    dots[currentslide].classList.add('active');
+    slides[currentslide].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+  btnSlideLeft.addEventListener('click', slideleft);
+
+  // Направо
   const slideRight = function () {
+    dots[currentslide].classList.remove('active');
     currentslide != 2 ? currentslide++ : (currentslide = 0);
-    // slidesWrapper.scrollLeft = slidesWrapper.offsetWidth * (currentslide + 1);
+    dots[currentslide].classList.add('active');
     slides[currentslide].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };
   btnSlideRight.addEventListener('click', slideRight);
 
-  //Автопрокрутка
+  //Стрелками
+  document.addEventListener('keydown', (e) => {
+    e.preventDefault();
+    if (e.key === 'ArrowLeft') {
+      slideleft();
+    }
+    if (e.key === 'ArrowRight') {
+      slideRight();
+    }
+  });
+
+  // Автопрокрутка
   let sliderInterval;
   new IntersectionObserver(
     (entries) => {
