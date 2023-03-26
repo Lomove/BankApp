@@ -558,6 +558,8 @@ section {
   position: relative;
   z-index: 1 !important;
   background-color: white;
+  border-radius: 1em;
+  box-shadow: 0 0 8px rgb(160, 160, 160);
 }
 .section-operations .operations-menu {
   transform: translate(0, -50%);
@@ -600,6 +602,7 @@ section {
 }
 .section-operations .operations-content-wrapper {
   margin: auto;
+  padding-bottom: 2em;
   width: 80%;
 }
 .section-operations .operations-content-wrapper .operations-content {
